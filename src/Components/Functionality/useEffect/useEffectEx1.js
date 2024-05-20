@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./UseEffect1.css"; // Import CSS file for styling
 
 const UseEffect1 = () => {
     const [todos, setTodos] = useState([]);
@@ -44,28 +43,27 @@ const UseEffect1 = () => {
     };
 
     return (
-        <div className="container">
-            <h2 className="title">Use Effect example</h2>
+        <div>
+            <h2>Use Effect example</h2>
             {/* Display buttons for each product */}
-            <div className="button-container">
+            <div>
                 {todos.map((todo, index) => (
-                    <button key={index} className="button" onClick={() => handleButtonClick(index)}>
+                    <button key={index} onClick={() => handleButtonClick(index)}>
                         Product {index + 1}
                     </button>
                 ))}
             </div>
             {/* Display individual todo data if it exists */}
             {Object.keys(eachTodo).length > 0 ? (
-                <div className="product-details">
+                <div>
                     <h3>ID: {eachTodo.id}</h3>
-                    <h3>TITLE: {eachTodo.title}</h3>
-                    <h3>PRICE: {eachTodo.price}</h3>
-                    <h3>DESCRIPTION: {eachTodo.description}</h3>
+                    <h3>Title: {eachTodo.title}</h3>
+                    <h3>Price: {eachTodo.price}</h3>
+                    <h3>Description: {eachTodo.description}</h3>
                 </div>
             ) : (
-                <h4 className="no-data">No data</h4>
+                <h4>No data</h4>
             )}
-
         </div>
     );
 };

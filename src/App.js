@@ -358,10 +358,8 @@
 
 
 import { Component } from "react";
-import UseEffect1 from "./Components/Functionality/useEffect/useEffectEx1";
-// import LoginForm from "./Components/Functionality/form/loginForm";
-// import RegistrationForm from "./Components/Functionality/form/registrationForm";
-// import Timer from "./Components/Functionality/timer/timer";
+import NavigationStack from "./navigation/navigation-stack";
+
 
 class App extends Component {
    render(){
@@ -369,7 +367,7 @@ class App extends Component {
       <div>
         
         <>
-          <UseEffect1></UseEffect1>
+          <NavigationStack></NavigationStack>
         </>
         
   
