@@ -1,71 +1,62 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { checkArrayLengthExists } from "../../../utills/functions";
+import ImageComponent from "../image/image";
+import { Link } from "react-router-dom";
+import "./UseEffect1.css"; // Import the CSS file
 
 const UseEffect1 = () => {
-    const [todos, setTodos] = useState([]);
-    const [count, setCount] = useState(0);
-    const [eachTodo, setEachTodo] = useState({});
+  const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    // useEffect will trigger once (fetch data from server)
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    // useEffect will trigger every when count changes
-    useEffect(() => {
-        document.title = `Count ${count}`;
-        fetchEachTodo();
-    }, [count]);
-
-    // Function to fetch all todos from server
+  useEffect(() => {
     const fetchData = async () => {
-        const result = await axios.get("https://fakestoreapi.com/products");
+      try {
+        const result = await axios.get("https://dummyjson.com/products");
         if (result.status === 200) {
-            setTodos(result.data);
+          setTodos(result.data.products);
         }
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    // Function to fetch todo based on the current count
-    const fetchEachTodo = async () => {
-        if (count >= 0 && count < todos.length) {
-            const result = await axios.get(
-                `https://fakestoreapi.com/products/${count + 1}`
-            );
-            if (result.status === 200) {
-                setEachTodo(result.data);
-            }
-        }
-    };
+    fetchData();
+  }, []);
 
-    // Function to handle button click and update count
-    const handleButtonClick = (index) => {
-        setCount(index);
-    };
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-    return (
-        <div>
-            <h2>Use Effect example</h2>
-            {/* Display buttons for each product */}
-            <div>
-                {todos.map((todo, index) => (
-                    <button key={index} onClick={() => handleButtonClick(index)}>
-                        Product {index + 1}
-                    </button>
-                ))}
+  if (error) {
+    return <p>Error fetching data: {error.message}</p>;
+  }
+
+  return (
+    <div className="container">
+      
+      {checkArrayLengthExists(todos) ? (
+        <div className="grid">
+          {todos.map((eachTodo) => (
+            <div key={eachTodo.id} className="card">
+              <h3>{eachTodo.title}</h3>
+              <ImageComponent src={eachTodo.thumbnail} alt={eachTodo.title} />
+              <button className="view-button">
+                <Link to={`/${eachTodo.brand}/${eachTodo.id}`}>
+                  Click to view product
+                </Link>
+              </button>
             </div>
-            {/* Display individual todo data if it exists */}
-            {Object.keys(eachTodo).length > 0 ? (
-                <div>
-                    <h3>ID: {eachTodo.id}</h3>
-                    <h3>Title: {eachTodo.title}</h3>
-                    <h3>Price: {eachTodo.price}</h3>
-                    <h3>Description: {eachTodo.description}</h3>
-                </div>
-            ) : (
-                <h4>No data</h4>
-            )}
+          ))}
         </div>
-    );
+      ) : (
+        <p>No products available</p>
+      )}
+    </div>
+  );
 };
 
 export default UseEffect1;

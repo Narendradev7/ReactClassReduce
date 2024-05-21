@@ -5,18 +5,19 @@ import AboutScreen from '../screens/about-screen';
 import SettingScreen from '../screens/setting-screen';
 import BlogScreen from '../screens/blog-screen';
 import InvalidScreen from '../screens/invalid-screen';
-import ProductScreen from '../screens/product-screen';
+import ProductDetail from '../screens/product-detailscreen';
 
 function NavigationStack() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<HomeScreen />} />
-        <Route path='/about' element={<AboutScreen />} />
-        <Route path='/setting' element={<SettingScreen />} />
-        <Route path='/blog' element={<BlogScreen />} />
-        <Route path='/products/:productId' element={<ProductScreen />} />
-        <Route path='*' element={<InvalidScreen />} />
+        <Route path='/' Component={HomeScreen} />
+        <Route path='/about' Component={AboutScreen} />
+        <Route path='/setting' Component={SettingScreen} />
+        <Route path='/blog' Component={BlogScreen} />
+        <Route path='/:products/:productID' Component={ProductDetail} />
+
+        <Route path='*' Component={InvalidScreen} />
       </Routes>
     </BrowserRouter>
   );
