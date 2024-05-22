@@ -5,7 +5,7 @@ import ImageComponent from "../image/image";
 import { Link } from "react-router-dom";
 import "./UseEffect1.css"; // Import the CSS file
 
-const UseEffect1 = () => {
+const UseEffect1 = ({ addToCart }) => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,17 +37,17 @@ const UseEffect1 = () => {
 
   return (
     <div className="container">
-      
       {checkArrayLengthExists(todos) ? (
         <div className="grid">
           {todos.map((eachTodo) => (
             <div key={eachTodo.id} className="card">
               <h3>{eachTodo.title}</h3>
               <ImageComponent src={eachTodo.thumbnail} alt={eachTodo.title} />
-              <button className="view-button">
-                <Link to={`/${eachTodo.brand}/${eachTodo.id}`}>
-                  Click to view product
-                </Link>
+              <Link to={`/${eachTodo.brand}/${eachTodo.id}`} className="view-button">
+                View Product
+              </Link>
+              <button className="add-to-cart-button" onClick={() => addToCart(eachTodo)}>
+                Add to Cart
               </button>
             </div>
           ))}

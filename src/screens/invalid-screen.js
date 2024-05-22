@@ -13,12 +13,6 @@ function InvalidScreen() {
   return (
     <div>
 <h3>Hey you lost, please check your direction</h3>
-{/* <button>
-
-    <Link  to={"/"}  >
-    Back to home
-    </Link>
-</button> */}
 
 <button onClick={navigateToMainScreen} >Back to home
 </button>

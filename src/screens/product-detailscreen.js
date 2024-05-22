@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-// import { checkObjectEmpty } from '../utills/functions';
+import { ThemeInfo } from '../navigation/navigation-stack';
 import { Container, Row, Col, Button, Spinner, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles.css'; // Create and import a custom CSS file for styles
+import './styles.css';
 
-function ProductDetails() {
+function ProductDetail() {
   const { productID } = useParams();
   const [eachProduct, setEachProduct] = useState({});
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useContext(ThemeInfo);
 
   useEffect(() => {
     fetchEachProduct();
@@ -24,6 +25,10 @@ function ProductDetails() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(eachProduct);
   };
 
   if (loading) {
@@ -71,7 +76,7 @@ function ProductDetails() {
               <span>Category: {eachProduct.category}</span>
             </div>
             <div className="actions">
-              <Button variant="primary" className="mr-2">Add to Cart</Button>
+              <Button variant="primary" className="mr-2" onClick={handleAddToCart}>Add to Cart</Button>
               <Button variant="success">Buy Now</Button>
             </div>
           </div>
@@ -81,4 +86,4 @@ function ProductDetails() {
   );
 }
 
-export default ProductDetails;
+export default ProductDetail;
