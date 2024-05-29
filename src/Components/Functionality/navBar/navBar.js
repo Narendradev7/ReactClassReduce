@@ -1,11 +1,11 @@
+
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ThemeInfo, UserInfo } from "../../../navigation/navigation-stack";
+import { themeInfo, userInfo } from "../../../navigation/navigation-stack";
 
 const NavBar = () => {
-  // const darkTheme = false;
-  const { name } = useContext(UserInfo);
-  const { darkMode, currentState } = useContext(ThemeInfo);
+  const { name } = useContext(userInfo);
+  const { darkMode, currentState } = useContext(themeInfo);
 
   const linkStyle = {
     textDecoration: "none",
@@ -33,11 +33,11 @@ const NavBar = () => {
               Settings
             </Link>
           </li>
-          <li className="nav-item nav-link">
+          {/* <li className="nav-item nav-link">
             <Link to="/blog" style={linkStyle}>
               Cart {currentState.cart.length}
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>

@@ -1,16 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { ThemeInfo } from '../navigation/navigation-stack';
 import { Container, Row, Col, Button, Spinner, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
+import { themeInfo } from '../navigation/navigation-stack';
 
 function ProductDetail() {
   const { productID } = useParams();
   const [eachProduct, setEachProduct] = useState({});
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useContext(ThemeInfo);
+  const { addToCart } = useContext(themeInfo);
 
   useEffect(() => {
     fetchEachProduct();

@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import NavBar from "../Components/Functionality/navBar/navBar"
-import { ThemeInfo } from "../navigation/navigation-stack"
+import { themeInfo } from "../navigation/navigation-stack"
 
 function SettingScreen() {
 
@@ -8,7 +8,7 @@ function SettingScreen() {
       handleDarkLightModes,
       incrementCounter
   
-    }=useContext(ThemeInfo)
+    }=useContext(themeInfo)
   
   
     const handleModes=()=>{

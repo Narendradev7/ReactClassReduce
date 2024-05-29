@@ -1,62 +1,59 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { checkArrayLengthExists } from "../../../utills/functions";
-import ImageComponent from "../image/image";
-import { Link } from "react-router-dom";
-import "./UseEffect1.css"; // Import the CSS file
+// import axios from "axios"
+import React, { useEffect, useState } from "react"
+// import { checkArrayLengthExists, checkObjectEmpty } from "../../../utills/functions"
+import ImageComponent from "../image/image"
+import { Link } from "react-router-dom"
+import useAxios from "../customHooks/useAxios"
+// import CircleSpinner from "../spinners/Circle-Spinners"
+import Loader from "react-loader-spinner"
 
-const UseEffect1 = ({ addToCart }) => {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get("https://dummyjson.com/products");
-        if (result.status === 200) {
-          setTodos(result.data.products);
-        }
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+const UseEffect1 =()=>{
 
-    fetchData();
-  }, []);
+    const[todos,loading,error]=useAxios("https://dummyjson.com/products")
+    
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
 
-  if (error) {
-    return <p>Error fetching data: {error.message}</p>;
-  }
 
-  return (
-    <div className="container">
-      {checkArrayLengthExists(todos) ? (
-        <div className="grid">
-          {todos.map((eachTodo) => (
-            <div key={eachTodo.id} className="card">
-              <h3>{eachTodo.title}</h3>
-              <ImageComponent src={eachTodo.thumbnail} alt={eachTodo.title} />
-              <Link to={`/${eachTodo.brand}/${eachTodo.id}`} className="view-button">
-                View Product
-              </Link>
-              <button className="add-to-cart-button" onClick={() => addToCart(eachTodo)}>
-                Add to Cart
-              </button>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No products available</p>
-      )}
-    </div>
-  );
-};
+    if(loading){
+        return Loader
+    }
 
-export default UseEffect1;
+    if(error){
+        return <h2>Something went wrong</h2>
+    }
+
+
+
+
+    return(
+        <>
+        <h2>Use Effect example</h2>
+
+        
+            <>
+            {
+                todos.products?.map(eachTodo=>{
+                    console.log(eachTodo)
+                    return(
+                        <React.Fragment key={eachTodo.id}>
+                        <h3>{eachTodo.title}</h3>
+                        <ImageComponent  src={eachTodo.thumbnail}   />
+                        <button>
+
+                            <Link     to={`/${eachTodo.brand}/${eachTodo.id}`}    >
+                            Click to view product
+                            </Link>
+                        </button>
+                        </React.Fragment>
+                    )
+                })
+
+            }
+            </>
+           
+
+        </>
+    )
+}
+export default UseEffect1
